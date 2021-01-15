@@ -1,4 +1,4 @@
-FROM **TODO** as game-install
+FROM ghcr.io/lanofdoom/steamcmd/steamcmd:latest as install
 
 RUN /opt/steam/steamcmd.sh +login anonymous +force_install_dir /opt/game +app_update 232330 validate +quit
 
@@ -11,7 +11,7 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --chown=nobody:root --from=game-install /opt/game /opt/game
+COPY --chown=nobody:root --from=install /opt/game /opt/game
 
 USER nobody
 ENTRYPOINT ["/opt/game/srcds_run", "-game cstrike", "+map de_dust2", "-strictbindport"]
