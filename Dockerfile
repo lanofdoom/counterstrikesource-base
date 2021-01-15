@@ -13,5 +13,4 @@ RUN apt-get update \
 
 COPY --chown=nobody:root --from=install /opt/game /opt/game
 
-USER nobody
-ENTRYPOINT ["/opt/game/srcds_run", "-game cstrike", "+map de_dust2", "-strictbindport"]
+ENTRYPOINT ["su", "-s", "/bin/bash", "nobody", "--", "/opt/game/srcds_run", "-game cstrike", "+map de_dust2", "-strictbindport"]
