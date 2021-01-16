@@ -48,7 +48,7 @@ jobs:
 
           docker inspect --format='{{.Created}}' ubuntu:focal > ubuntu-focal.ver
           docker inspect --format='{{.Created}}' ghcr.io/lanofdoom/steamcmd/steamcmd:latest > steamcmd.ver
-          docker run $IMAGE_NAME dpkg -l > packages.ver
+          docker run --entrypoint=/bin/dpkg $IMAGE_NAME -l > packages.ver
           docker run --entrypoint=/bin/find $IMAGE_NAME /opt/game -type f -exec sha256sum {} \; > cstrike.ver
 
           if cmp -s ubuntu-focal.ver deps/ubuntu-focal.ver \
