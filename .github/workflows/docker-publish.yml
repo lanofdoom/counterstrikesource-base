@@ -2,16 +2,12 @@ name: Docker
 
 on:
   push:
-    # Publish `main` as Docker `latest` image.
     branches:
       - main
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v1.0.0
-
-  # Run tests for any PRs.
-  pull_request:
+  # Run every day at 1 AM
+  schedule:
+    - cron:  '* 1 * * *'
 
 env:
   IMAGE_NAME: counterstrikesource-base
@@ -50,5 +46,31 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
+          docker inspect --format='{{.Created}}' ubuntu:focal > ubuntu-focal.ver
+          docker inspect --format='{{.Created}}' ghcr.io/lanofdoom/steamcmd/steamcmd:latest > steamcmd.ver
+          docker run $IMAGE_NAME dpkg -l > packages.ver
+          docker run --entrypoint=/bin/find $IMAGE_NAME /opt/game -type f -exec sha256sum {} \; > cstrike.ver
+
+          if cmp -s ubuntu-focal.ver deps/ubuntu-focal.ver \
+             && cmp -s packages.ver deps/packages.ver \
+             && cmp -s steamcmd.ver deps/steamcmd.ver \
+             && cmp -s cstrike.ver deps/cstrike.ver ; \
+          then exit ; \
+          fi
+
+          mkdir -p deps
+          cp ubuntu-focal.ver deps/ubuntu-focal.ver
+          cp packages.ver deps/packages.ver
+          cp steamcmd.ver steamcmd.ver
+          cp cstrike.ver deps/cstrike.ver
+
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+      - name: Update dependency versions
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main
+          FOLDER: deps
+          TARGET_FOLDER: deps
