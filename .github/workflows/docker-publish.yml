@@ -61,7 +61,7 @@ jobs:
           mkdir -p deps
           cp ubuntu-focal.ver deps/ubuntu-focal.ver
           cp packages.ver deps/packages.ver
-          cp steamcmd.ver steamcmd.ver
+          cp steamcmd.ver deps/steamcmd.ver
           cp cstrike.ver deps/cstrike.ver
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
