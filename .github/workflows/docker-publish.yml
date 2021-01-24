@@ -51,6 +51,7 @@ jobs:
           docker run --entrypoint=/bin/dpkg $IMAGE_NAME -l > packages.ver
           docker run --entrypoint=/bin/bash $IMAGE_NAME -c "find /opt/game -type f -print0 | sort -z | xargs -r0 sha256sum" > cstrike.ver
 
+          cp -r deps deps_tmp
           if cmp -s dockerfile.ver deps/dockerfile.ver \
              && cmp -s ubuntu-focal.ver deps/ubuntu-focal.ver \
              && cmp -s packages.ver deps/packages.ver \
