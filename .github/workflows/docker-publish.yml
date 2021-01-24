@@ -47,7 +47,6 @@ jobs:
 
           sha256sum Dockerfile > dockerfile.ver
           docker inspect --format='{{.Created}}' ubuntu:focal > ubuntu-focal.ver
-          docker inspect --format='{{.Created}}' ghcr.io/lanofdoom/steamcmd/steamcmd:latest > steamcmd.ver
           docker run --entrypoint=/bin/dpkg $IMAGE_NAME -l > packages.ver
           docker run --entrypoint=/bin/bash $IMAGE_NAME -c "find /opt/game -type f -print0 | sort -z | xargs -r0 sha256sum" > cstrike.ver
 
@@ -55,7 +54,6 @@ jobs:
           if cmp -s dockerfile.ver deps/dockerfile.ver \
              && cmp -s ubuntu-focal.ver deps/ubuntu-focal.ver \
              && cmp -s packages.ver deps/packages.ver \
-             && cmp -s steamcmd.ver deps/steamcmd.ver \
              && cmp -s cstrike.ver deps/cstrike.ver ; \
           then exit ; \
           fi
@@ -64,7 +62,6 @@ jobs:
           mv -f dockerfile.ver deps_tmp/dockerfile.ver
           mv -f ubuntu-focal.ver deps_tmp/ubuntu-focal.ver
           mv -f packages.ver deps_tmp/packages.ver
-          mv -f steamcmd.ver deps_tmp/steamcmd.ver
           mv -f cstrike.ver deps_tmp/cstrike.ver
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION

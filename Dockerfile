@@ -1,6 +1,7 @@
 FROM ghcr.io/lanofdoom/steamcmd/steamcmd:latest as install
 
 RUN /opt/steam/steamcmd.sh +login anonymous +force_install_dir /opt/game +app_update 232330 validate +quit
+RUN rm -rf /opt/game/steamapps
 
 FROM ubuntu:focal
 
