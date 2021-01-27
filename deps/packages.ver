@@ -35,8 +35,8 @@ ii  libaudit1:amd64         1:2.8.5-2ubuntu6           amd64        Dynamic libr
 ii  libblkid1:amd64         2.34-0.1ubuntu9.1          amd64        block device ID library
 ii  libbz2-1.0:amd64        1.0.8-2                    amd64        high-quality block-sorting file compressor library - runtime
 ii  libc-bin                2.31-0ubuntu9.1            amd64        GNU C Library: Binaries
-ii  libc6:amd64             2.31-0ubuntu9.1            amd64        GNU C Library: Shared libraries
-ii  libc6-i386              2.31-0ubuntu9.1            amd64        GNU C Library: 32-bit shared libraries for AMD64
+ii  libc6:amd64             2.31-0ubuntu9.2            amd64        GNU C Library: Shared libraries
+ii  libc6-i386              2.31-0ubuntu9.2            amd64        GNU C Library: 32-bit shared libraries for AMD64
 ii  libcap-ng0:amd64        0.7.9-2.1build1            amd64        An alternate POSIX capabilities library
 ii  libcom-err2:amd64       1.45.5-2ubuntu1            amd64        common error description library
 ii  libcrypt1:amd64         1:4.4.10-10ubuntu4         amd64        libcrypt shared library
