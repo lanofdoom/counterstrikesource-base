@@ -13,6 +13,7 @@ container_run_and_extract(
     commands = [
         "/opt/steam/steamcmd.sh +login anonymous +force_install_dir /opt/game +app_update 232330 validate +quit",
         "rm -rf /opt/game/steamapps",
+        "chown -R nobody:root /opt/game",
         "tar -cvf /cstrike.tar /opt/game/",
     ],
     image = "@steamcmd_base//image",
