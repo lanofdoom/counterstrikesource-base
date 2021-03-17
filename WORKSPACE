@@ -28,7 +28,7 @@ container_pull(
 )
 
 container_pull(
-    name = "server_base",
+    name = "ubuntu",
     registry = "index.docker.io",
     repository = "library/ubuntu",
     tag = "focal",
