@@ -57,7 +57,7 @@ download_pkgs(
 
 install_pkgs(
     name = "server_base",
-    image_tar = "@ubuntu//image",
+    image_tar = ":ubuntu_with_i386_packages.tar",
     installables_tar = ":server_deps.tar",
     installation_cleanup_commands = "rm -rf /var/lib/apt/lists/*",
     output_image_name = "server_base",
