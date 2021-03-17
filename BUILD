@@ -22,12 +22,34 @@ container_run_and_extract(
 )
 
 #
+# Build Image With i386 Enabled
+#
+
+container_run_and_extract(
+    name = "enable_i386_sources",
+    image = "@ubuntu//image",
+    extract_file = "/var/lib/dpkg/arch",
+    commands = [
+        "dpkg --add-architecture i386",
+    ],
+)
+
+container_image(
+    name = "ubuntu_with_i386_packages",
+    base = "@ubuntu//image",
+    directory = "/var/lib/dpkg",
+    files = [
+        ":enable_i386_sources/var/lib/dpkg/arch",
+    ],
+)
+
+#
 # Server Image
 #
 
 download_pkgs(
     name = "server_deps",
-    image_tar = "@ubuntu//image",
+    image_tar = ":ubuntu_with_i386_packages.tar",
     packages = [
         "lib32gcc1",
     ],
