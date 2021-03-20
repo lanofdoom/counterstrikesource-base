@@ -50,6 +50,10 @@ download_pkgs(
     image_tar = ":ubuntu_with_i386_packages.tar",
     packages = [
         "lib32gcc1",
+        # TODO: Put these back in counterstrikesource-server whenever Bazel's
+        #       build size issues are worked out.
+        "ca-certificates:i386",
+        "libcurl4:i386",
     ],
 )
 
